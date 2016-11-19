@@ -111,6 +111,8 @@ public class alarmTimer extends AppCompatActivity {
 
 
     public void onClick(View view){
+
+        doStopService();
         Intent Reset = new Intent(this, MainActivity.class);
         startActivity(Reset);
 

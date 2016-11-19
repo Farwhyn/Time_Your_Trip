@@ -57,7 +57,7 @@ public class NextBusesAdapter extends BaseAdapter {
         TextView directionTextField = (TextView) vi.findViewById(R.id.direction);
         directionTextField.setText(data.get(position).getDestination());
         TextView leaveTimeTextField = (TextView) vi.findViewById(R.id.leaveTime);
-        leaveTimeTextField.setText(data.get(position).getEstimatedLeaveTime());
+        leaveTimeTextField.setText(data.get(position).getJustTime());
 
         return vi;
     }

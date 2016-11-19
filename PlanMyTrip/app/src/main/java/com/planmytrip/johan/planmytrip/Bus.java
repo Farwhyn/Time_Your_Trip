@@ -36,6 +36,31 @@ public class Bus implements Serializable, Comparable<Bus>
         return destination;
     }
 
+    public String getJustTime(){
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mma yyyy-MM-dd");
+            Date date = sdf.parse(getEstimatedLeaveTime());
+            SimpleDateFormat sdfOut = new SimpleDateFormat("hh:mma");
+            return sdfOut.format(date);
+
+        }
+        catch(ParseException e){
+
+            try{
+                SimpleDateFormat sdf = new SimpleDateFormat("hh:mma");
+                Date date = sdf.parse(getEstimatedLeaveTime());
+                return sdf.format(date);
+
+            }
+            catch(ParseException e1){
+                System.out.println("Parse exception date!!!!");
+                return getEstimatedLeaveTime();
+            }
+        }
+
+    }
+
+
     public String getEstimatedLeaveTime() {
 
         return estimatedLeaveTime;

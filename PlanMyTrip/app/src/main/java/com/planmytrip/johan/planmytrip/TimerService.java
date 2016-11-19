@@ -19,6 +19,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.PowerManager;
 import android.os.RemoteException;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -60,6 +61,7 @@ public class TimerService extends Service {
     private boolean hasSetGPSTo5000 = false;
     private boolean hasSetGPSTo3000 = false;
     boolean alarmEnabled = true;
+    PowerManager.WakeLock wakeLock;
 
     NotificationManager notificationManager;
     NotificationCompat.Builder notificationBuilder;
@@ -156,10 +158,13 @@ public class TimerService extends Service {
                         .setDeleteIntent(deleteIntent)
                         .setContentIntent(clickIntent);
 
+                PowerManager mgr = (PowerManager)getSystemService(Context.POWER_SERVICE);
+                wakeLock = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyWakeLock");
+                wakeLock.acquire();
+
                 new TranslinkHandler(this).getEstimatedTimeFromGoogle(start.getLatitude(), start.getLongitude(), destination.getLatitude(), destination.getLongitude(), "now");
             }
         }
-
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -190,15 +195,6 @@ public class TimerService extends Service {
             sendMessage(UPDATE_DISTANCE_TEXTVIEW, "Distance to destination: " + String.format("%.0f", distance) + " Meters");
             timer.cancel();
             sendMessage(UPDATE_TIME_TEXTVIEW, "a few seconds");
-            runnable = new Runnable() {
-
-                @Override
-                public void run() {
-                    doStopSelf();
-                }
-            };
-
-            myHandler.postDelayed(runnable, 120000);
 
             if (!hasPlayedAlarm) {
                 if (alarmEnabled) {
@@ -212,6 +208,15 @@ public class TimerService extends Service {
                 gpsHandler.removeUpdates();
                 gpsHandler.requestGPSUpdates(500);
                 hasSetGPSTo3000 = true;
+                runnable = new Runnable() {
+
+                    @Override
+                    public void run() {
+                        doStopSelf();
+                    }
+                };
+
+                myHandler.postDelayed(runnable, 120000);
             }
 
         } else if (distance < 600) {
@@ -226,8 +231,8 @@ public class TimerService extends Service {
         } else if (distance < 1200) {
             sendMessage(UPDATE_DISTANCE_TEXTVIEW, "Distance to destination: " + String.format("%.0f", distance) + " Meters");
 
-            gpsHandler.removeUpdates();
             if (!hasSetGPSTo10000) {
+                gpsHandler.removeUpdates();
                 gpsHandler.requestGPSUpdates(3000);
                 hasSetGPSTo10000 = true;
             }
@@ -343,6 +348,7 @@ public class TimerService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        wakeLock.release();
         System.out.println("Service got destroyed");
         sendMessage(SERVICE_GOT_DESTROYED, "");
         myHandler.removeCallbacks(runnable);
