@@ -19,7 +19,7 @@
             android:background="#0649B6" />
 
         <TextView
-            android:text=" Buses for bus stop N...."
+            android:text=" "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"

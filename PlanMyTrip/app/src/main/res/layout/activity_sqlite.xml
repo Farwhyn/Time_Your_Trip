@@ -12,7 +12,7 @@
         android:background="#0649B6" />
 
     <TextView
-        android:text="upcoming stops for bus N...."
+        android:text=" "
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:id="@+id/textView5"

@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.util.Collections;
+import android.support.v7.widget.Toolbar;
 
 
 public class TranslinkUI extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class TranslinkUI extends AppCompatActivity {
     private ArrayList<Bus> nextBuses;
     private ListView listView;
     private String stopNo;
+   // private String TranslinkUITitle = "Buses for bus stop N ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,19 @@ public class TranslinkUI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.translinkui_activity_main);
 
-        text_view = (TextView) this.findViewById(R.id.text_field);
-        text_view.setText("");
+
+
+        //Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //toolbar.setTitleTextColor(Color.YELLOW);
+        //getSupportActionBar().setTitle(mActivityTitle);
 
         Intent myIntent = getIntent(); // gets the previously created intent
         stopNo = myIntent.getStringExtra("busStopNo"); // store the stopcode entered by user earlier
+
+        text_view = (TextView) this.findViewById(R.id.textView4);
+        text_view.setText("Buses for bus stop # " + stopNo);
+
         nextBuses = (ArrayList<Bus>)myIntent.getSerializableExtra("busList"); //stores the array of buses returned by the translink handler class
         Collections.sort(nextBuses); //sort the array based on arrival time of buses
 
