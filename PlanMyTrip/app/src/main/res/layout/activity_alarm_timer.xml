@@ -63,16 +63,6 @@
         android:layout_below="@+id/toolbar3"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:text="@string/stopalarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:textColor="@android:color/holo_red_light"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="109dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,6 +72,28 @@
         android:layout_below="@+id/timer"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:text="@string/stopalarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:textColor="@android:color/holo_red_light"
+        android:layout_below="@+id/locationTextView"
+        android:layout_toRightOf="@+id/textView3"
+        android:layout_toEndOf="@+id/textView3"
+        android:layout_marginTop="34dp" />
+
+    <Button
+        android:text="RESET"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button3"
+        android:layout_alignLeft="@+id/timer"
+        android:layout_alignStart="@+id/timer"
+        android:id="@+id/button4"
+        android:textColor="@android:color/holo_red_light"
+        android:onClick="onClick"
+        />
 
 
 </RelativeLayout>

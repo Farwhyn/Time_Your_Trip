@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.Collections;
 
@@ -64,6 +65,11 @@ public class TranslinkUI extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void onClickStar(View view){
+        Toast.makeText(getBaseContext(),"Stop's been added to favorite list",Toast.LENGTH_LONG).show();
+
     }
 
     public void routeStopsQueryReturned(String result, String errorMsg){

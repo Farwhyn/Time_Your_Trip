@@ -87,9 +87,10 @@ public class alarmTimer extends AppCompatActivity {
             public void onClick(View v) {
                 if (alarmEnabled) {
                     stopAlarm.setText("Set Alarm");
+                    myServiceBinder.setAlarmEnabled(false);
                     alarmEnabled = false;
                     System.out.println("onClick stop alarm");
-                    myServiceBinder.setAlarmEnabled(false);
+
                 } else {
                     stopAlarm.setText("Stop Alarm");
                     alarmEnabled = true;
@@ -107,6 +108,14 @@ public class alarmTimer extends AppCompatActivity {
 
 
     }
+
+
+    public void onClick(View view){
+        Intent Reset = new Intent(this, MainActivity.class);
+        startActivity(Reset);
+
+    }
+
 
     public Handler myHandler1 = new Handler() {
         public void handleMessage(Message message) {

@@ -192,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 getSupportActionBar().setTitle(mActivityTitle);
+
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };

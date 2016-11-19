@@ -19,11 +19,11 @@
             android:background="#0649B6" />
 
         <TextView
-            android:text="@string/please_select_a_bus"
+            android:text=" Buses for bus stop N...."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textColor="#FFDA24"
             android:textAlignment="center"
             android:layout_alignParentTop="true"
@@ -34,6 +34,17 @@
             android:layout_alignParentEnd="true"
             android:translationY="10dp" />
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBox2"
+            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:button="@android:drawable/btn_star_big_on"
+            android:onClick="onClickStar" />
     </RelativeLayout>
 
     <ListView

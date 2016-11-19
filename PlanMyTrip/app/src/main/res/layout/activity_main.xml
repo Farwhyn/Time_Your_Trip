@@ -29,6 +29,7 @@
         android:theme="?attr/actionBarTheme"
         android:minHeight="?attr/actionBarSize"
         android:id="@+id/toolbar" />
+      //  android:titleColor=" #FFDA24" />
 
     <RelativeLayout
         android:id="@+id/loadingPanel"
