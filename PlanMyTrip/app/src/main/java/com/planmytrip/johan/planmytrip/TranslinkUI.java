@@ -50,7 +50,7 @@ public class TranslinkUI extends AppCompatActivity {
         stopNo = myIntent.getStringExtra("busStopNo"); // store the stopcode entered by user earlier
 
         text_view = (TextView) this.findViewById(R.id.textView4);
-        text_view.setText("Buses for bus stop # " + stopNo);
+        text_view.setText("Buses for #" + stopNo);
 
         nextBuses = (ArrayList<Bus>)myIntent.getSerializableExtra("busList"); //stores the array of buses returned by the translink handler class
         Collections.sort(nextBuses); //sort the array based on arrival time of buses

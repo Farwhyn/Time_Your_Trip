@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(Color.YELLOW);
+        toolbar.setTitleTextColor(Color.parseColor("#FFDA24"));
         getSupportActionBar().setTitle(mActivityTitle);
 
         loadingPanel = (RelativeLayout) findViewById(R.id.loadingPanel);

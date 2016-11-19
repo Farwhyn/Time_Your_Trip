@@ -38,7 +38,7 @@ public class ConnectDatabase extends AppCompatActivity{
 
         text_view = (TextView) this.findViewById(R.id.textView5);
         text_view.setText("upcoming stops for bus # " + selRoute);
-        
+
         this.listView = (ListView) findViewById(R.id.listView);
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
