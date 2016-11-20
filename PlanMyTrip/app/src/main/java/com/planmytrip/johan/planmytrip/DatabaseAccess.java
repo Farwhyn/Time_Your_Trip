@@ -83,6 +83,44 @@ public class DatabaseAccess {
         return prevStop;
 
     }
+
+
+    //function to see if a bus stop already exists in the database;
+    public boolean checkFavorite(String stopcode) {
+        Cursor cursor = database.rawQuery("SELECT * FROM favourite WHERE stop_code=" + stopcode, null);
+        if(cursor != null) {
+            if(cursor.moveToFirst()) {
+                return true;
+            }
+            else
+                return false;
+
+        }
+
+        else
+            return false;
+    }
+
+    public void writeToFavourite(Stop stop) {
+        database.execSQL("INSERT INTO favourite VALUES('" + stop.getStopID() + "', '" + stop.getStopCode() + "', '" + stop.getName() + "', '" + stop.getLatitude() + "', '" + stop.getLongitude() + "');");
+    }
+
+    public ArrayList<Stop> getFromFavourite() {
+        ArrayList<Stop> list = new ArrayList<Stop>();
+        Cursor cursor = database.rawQuery("SELECT * FROM favourite", null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Stop stop = new Stop(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                list.add(stop);
+                cursor.moveToNext();
+            }
+        }
+
+        return list;
+
+    }
+
     /**
      * Read all quotes from the database.
      *
@@ -91,7 +129,7 @@ public class DatabaseAccess {
     public ArrayList<Stop> getStops(String route_num, String destination) {
         ArrayList<Stop> list = new ArrayList<Stop>();
         Cursor cursor = database.rawQuery("SELECT * FROM routes WHERE route_short_name LIKE '%" + route_num + "%'", null);
-
+        Stop newStop = null;
         if (cursor != null) {
             try {
                 if (cursor.moveToFirst()) {
@@ -137,7 +175,7 @@ public class DatabaseAccess {
                 if (c2 != null) {
                     try {
                         if (c2.moveToFirst()) {
-                            Stop newStop = new Stop(c2.getString(0), c2.getString(1), c2.getString(2), c2.getString(4), c2.getString(5));
+                            newStop = new Stop(c2.getString(0), c2.getString(1), c2.getString(2), c2.getString(4), c2.getString(5));
                             list.add(newStop);
                         }
                     } finally {
@@ -156,13 +194,35 @@ public class DatabaseAccess {
 
     public ArrayList<String> getAllRoutes(){
         ArrayList<String> list = new ArrayList<String>();
+        String busRoute = "";
+        String routeName = "";
+        String both = "";
         Cursor cursor = database.rawQuery("SELECT * FROM routes", null);
         if(cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                String busRoute = cursor.getString(2);
-                String routeName = cursor.getString(3);
-                String both = busRoute + " " + routeName;
+                busRoute = cursor.getString(2);
+                routeName = cursor.getString(3);
+                both = busRoute + " " + routeName;
+                list.add(both);
+                cursor.moveToNext();
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<String> getSkytrainRoutes(){
+        ArrayList<String> list = new ArrayList<String>();
+        String busRoute = "";
+        String routeName = "";
+        String both = "";
+        Cursor cursor = database.rawQuery("SELECT * FROM routes WHERE agency_id=CMBC", null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                busRoute = cursor.getString(2);
+                routeName = cursor.getString(3);
+                both = busRoute + " " + routeName;
                 list.add(both);
                 cursor.moveToNext();
             }
@@ -170,3 +230,5 @@ public class DatabaseAccess {
         return list;
     }
 }
+
+

@@ -29,6 +29,7 @@ public class AllRoutes extends AppCompatActivity implements SearchView.OnQueryTe
     ListView listView;
     ArrayList<String> allRoutes;
     ArrayList<String> filteredRoutes;
+    //DatabaseAccess db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,5 +93,4 @@ public class AllRoutes extends AppCompatActivity implements SearchView.OnQueryTe
 
         return false;
     }
-
 }

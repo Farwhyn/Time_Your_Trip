@@ -95,11 +95,6 @@ public class alarmTimer extends AppCompatActivity {
                     stopAlarm.setText("Stop Alarm");
                     alarmEnabled = true;
                     myServiceBinder.setAlarmEnabled(true);
-                    Intent intent = new Intent(alarmTimer.this, AllRoutes.class);
-                    //intent.putExtra("selectedRoute",nextBuses.get(position).getBusNo());
-                    startActivity(intent);
-
-
                 }
             }
         });

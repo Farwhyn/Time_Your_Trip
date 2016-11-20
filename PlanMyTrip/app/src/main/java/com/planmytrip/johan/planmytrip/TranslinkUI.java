@@ -25,7 +25,7 @@ import android.support.v7.widget.Toolbar;
 
 
 public class TranslinkUI extends AppCompatActivity {
-
+    private DatabaseAccess db;
     private TextView text_view;
     private ArrayList<Bus> nextBuses;
     private ListView listView;
@@ -40,7 +40,7 @@ public class TranslinkUI extends AppCompatActivity {
         setContentView(R.layout.translinkui_activity_main);
 
 
-
+        db = DatabaseAccess.getInstance(this);
         //Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
         //toolbar.setTitleTextColor(Color.YELLOW);
@@ -78,8 +78,14 @@ public class TranslinkUI extends AppCompatActivity {
     }
 
     public void onClickStar(View view){
-        Toast.makeText(getBaseContext(),"Stop's been added to favorite list",Toast.LENGTH_LONG).show();
-
+        if(!db.checkFavorite(stopNo)) {
+            Stop stop = db.getOriginalStop(stopNo);
+            db.writeToFavourite(stop);
+            Toast.makeText(getBaseContext(), "Stop " + stopNo + " has been added to favorite list",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getBaseContext(), "You've already added this stop", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void routeStopsQueryReturned(String result, String errorMsg){
@@ -88,33 +94,6 @@ public class TranslinkUI extends AppCompatActivity {
         }
         else {
             text_view.setText(result);
-        }
-    }
-
-
-    public void nextBusesQueryReturned(ArrayList<Bus> result, String errorMsg){
-        if(errorMsg != null){
-            text_view.setText(errorMsg);
-        }
-        else {
-            nextBuses = result;
-            ArrayAdapter<Bus> arrayAdapter = new ArrayAdapter<Bus>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    nextBuses );
-
-            listView.setAdapter(arrayAdapter);
-
-            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    return true;
-                }
-            });
-
-            text_view.setText("");
-
-
         }
     }
 
@@ -138,6 +117,20 @@ public class TranslinkUI extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+       db.open();
+    }
+
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+        db.close();
     }
 
 }

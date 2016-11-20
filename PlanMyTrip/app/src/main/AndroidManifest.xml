@@ -52,6 +52,10 @@
         <activity
             android:name=".AllRoutes"
             android:label="@string/title_activity_all_routes"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Favourite"
+            android:label="@string/title_activity_favourite"
             android:theme="@style/AppTheme"></activity>
     </application>
 

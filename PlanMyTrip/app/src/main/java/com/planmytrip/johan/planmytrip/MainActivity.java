@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mActivityTitle;
+    private String mActivityTitle = "Time Your Trip";
     private String[] menuArray = { "Bus Stops Around Me", "Online Mode",  "View My Location", "Show Bus Routes", "Show Skytrain",
-            "My Favorite List", "Rate the app", "Feedback"};
+            "My Favourite List", "Rate the app", "Feedback"};
     private Integer[] iconArray = {
             R.mipmap.list,
             R.mipmap.setting,
@@ -179,7 +179,28 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String menuItem = String.valueOf(parent.getItemAtPosition(position));
-                Toast.makeText(MainActivity.this, menuItem, Toast.LENGTH_SHORT).show();
+                Intent intent;
+                switch(menuItem) {
+                    case "My Favourite List":
+                        intent = new Intent(MainActivity.this, Favourite.class);
+                        startActivity(intent);
+                        break;
+                    case "Show Bus Routes":
+                        intent = new Intent(MainActivity.this, AllRoutes.class);
+                        //intent.putExtra("selectedRoute",nextBuses.get(position).getBusNo());
+                        startActivity(intent);
+                        break;
+                    case "View My Location":
+                        if (mLastLocation != null) {
+                            //Toast.makeText(getApplicationContext(), mLastLocation.getLatitude() + " " + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+                            initCamera(mLastLocation);
+                        }
+                        break;
+                    default:
+                        Toast.makeText(MainActivity.this, menuItem, Toast.LENGTH_SHORT).show();
+                        break;
+
+                }
             }
         });
     }
@@ -222,11 +243,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         // Activate the navigation drawer toggle
         if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -337,40 +353,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     }
 
-    public void offLineStops(String code) {
-        Stop stop = databaseAccess.getOriginalStop(code);
-        //String address = "";
-        if(stop != null) {
-            LatLng coor = new LatLng(Double.parseDouble(stop.getLatitude()), Double.parseDouble(stop.getLongitude()));
-            String address = getAddressFromLatLng(coor);
-
-            int i = findMarker(stop.getStopCode());
-            if(i > 0) {
-                markers.get(i).showInfoWindow();
-
-            }
-            else {
-                setSingleMarker(stop);
-                int j = findMarker(stop.getStopCode());
-                markers.get(j).showInfoWindow();
-
-            }
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(coor)      // Sets the center of the map to Mountain View
-                    .zoom( 17 )
-                    .bearing( 0.0f )
-                    .tilt( 0.0f )                // Sets the tilt of the camera to 30 degrees
-                    .build();                   // Creates a CameraPosition from the builder
-            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            Toast.makeText(getApplicationContext(), address, Toast.LENGTH_LONG).show();
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "Cannot Find Stop in Database", Toast.LENGTH_SHORT).show();
-        }
-        loadingPanel.setVisibility(View.GONE);
-
-    }
-
     public void showError(String msg) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_LONG;
@@ -415,10 +397,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
             }
 
-
-
-
-
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(coor)      // Sets the center of the map to Mountain View
                     .zoom( 18f )
@@ -434,20 +412,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         @Override
         public void onConnected(Bundle bundle) {
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-            /*
-            LocationRequest mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(10000);
-            mLocationRequest.setFastestInterval(5000);
-            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                    .addLocationRequest(mLocationRequest);
-
-            if (ContextCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
-                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, (com.google.android.gms.location.LocationListener) this);
-            }
-            */
 
             if (mLastLocation != null) {
                 //Toast.makeText(getApplicationContext(), mLastLocation.getLatitude() + " " + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
@@ -607,13 +571,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         return address;
     }
-
+/*
     protected void createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
-
+*/
 
 }

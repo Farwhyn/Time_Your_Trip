@@ -142,8 +142,10 @@ public class TranslinkHandler {
             }
 
             System.out.print(nextBuses.toString());
-
-            ((MainActivity)context).nextBusesQueryReturned(nextBuses, null);
+            if(this.context instanceof MainActivity)
+                ((MainActivity)context).nextBusesQueryReturned(nextBuses, null);
+            else
+                ((Favourite)context).nextBusesQueryReturned(nextBuses, null);
 
 
 
