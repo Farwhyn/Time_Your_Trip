@@ -153,4 +153,20 @@ public class DatabaseAccess {
             Log.d("SQLite error", "bad query");
         return list;
     }
+
+    public ArrayList<String> getAllRoutes(){
+        ArrayList<String> list = new ArrayList<String>();
+        Cursor cursor = database.rawQuery("SELECT * FROM routes", null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String busRoute = cursor.getString(2);
+                String routeName = cursor.getString(3);
+                String both = busRoute + " " + routeName;
+                list.add(both);
+                cursor.moveToNext();
+            }
+        }
+        return list;
+    }
 }
