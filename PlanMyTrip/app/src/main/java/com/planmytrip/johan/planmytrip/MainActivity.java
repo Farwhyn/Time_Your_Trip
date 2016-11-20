@@ -2,6 +2,7 @@ package com.planmytrip.johan.planmytrip;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.provider.Settings;
@@ -11,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -42,10 +42,14 @@ import android.graphics.Color;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -55,16 +59,19 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.location.LocationListener;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         GoogleMap.OnInfoWindowClickListener,
-        GoogleMap.OnMarkerClickListener {
+        GoogleMap.OnMarkerClickListener, LocationListener {
 
     private String stopNumber; //stores the stop number entered by user
+    private boolean begin = true;
     private RelativeLayout loadingPanel; // loading circle
     private TranslinkHandler transHandler;
     //below is for sliding menu
     private ListView mDrawerList;
+    private LocationRequest mLocationRequest;
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -122,6 +129,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+
+        createLocationRequest();
 
         //databaseAccess = DatabaseAccess.getInstance(this);
        // databaseAccess.open();
@@ -411,6 +420,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         //------------------------------MAP STUFF (JAMES) ---------------------------------------------//
         @Override
         public void onConnected(Bundle bundle) {
+            if(!locationManager.isLocationEnabled()){
+                showAlert();
+            }
+            else {
+                mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            }
+            requestLocationUpdate();
+
+            /*
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
             if (mLastLocation != null) {
@@ -432,8 +450,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                     showAlert();
                 }
             }
+            */
+        }
 
-
+        public void requestLocationUpdate() {
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
 
         @Override
@@ -571,13 +592,59 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         return address;
     }
-/*
+
     protected void createLocationRequest() {
-        LocationRequest mLocationRequest = new LocationRequest();
+        mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_LOW_POWER);
     }
-*/
 
+
+    @Override
+    public void onLocationChanged(Location location) {
+        //mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        //if (mLastLocation != null) {
+            //Toast.makeText(getApplicationContext(), mLastLocation.getLatitude() + " " + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+            mLastLocation = location;
+            if(begin) {
+                initCamera(location);
+                begin = false;
+            }
+
+            //if(mLastLocation != null) {
+                DecimalFormat df = new DecimalFormat("#.####");
+                df.setRoundingMode(RoundingMode.CEILING);
+                String la = df.format(location.getLatitude());
+                String lo = df.format(location.getLongitude());
+
+                submitArea(la, lo);
+                String address = getAddressFromLatLng(new LatLng(location.getLatitude(), location.getLongitude()));
+                //Toast.makeText(getApplicationContext(), address, Toast.LENGTH_LONG).show();
+           // }
+       // } else {
+            //Toast.makeText(getApplicationContext(), "Please turn on Location Service", Toast.LENGTH_SHORT).show();
+            if(!locationManager.isLocationEnabled()){
+                showAlert();
+            }
+        //}
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mGoogleApiClient.isConnected()) {
+            requestLocationUpdate();
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+
+    }
 }
