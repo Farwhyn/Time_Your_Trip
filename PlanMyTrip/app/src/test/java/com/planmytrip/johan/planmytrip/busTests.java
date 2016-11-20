@@ -1,8 +1,7 @@
 package com.planmytrip.johan.planmytrip;
 
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 /**
@@ -24,15 +23,17 @@ public class busTests {
         assertEquals("testedBusNumber", testerBus.getBusNo());
         assertNotEquals("SomeRandomBusNumber", testerBus.getBusNo());
     }
+
     @Test
     public void testBusEstimatedLeaveTime(){
         assertEquals("10:30am", testerBus.getEstimatedLeaveTime());
         assertNotEquals("10:31am", testerBus.getEstimatedLeaveTime());
     }
+
     @Test
     public void testBusDestination(){
         assertEquals("testedBusDestination", testerBus.getDestination());
-        assertNotEquals("StraightOuttaUBC", testerBus.getDestination());
+        assertNotEquals("StraightIntoUBC", testerBus.getDestination());
     }
 
 }
