@@ -68,8 +68,19 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mActivityTitle = "Time Your Trip";
-    private String[] osArray = { "Find Bus Stops Around You", "View Your Location", "Show Bus Routes", "Show Skytrain"};
+    private String mActivityTitle;
+    private String[] menuArray = { "Bus Stops Around Me", "Online Mode",  "View My Location", "Show Bus Routes", "Show Skytrain",
+            "My Favorite List", "Rate the app", "Feedback"};
+    private Integer[] iconArray = {
+            R.mipmap.list,
+            R.mipmap.setting,
+            R.mipmap.mylocation,
+            R.mipmap.bus,
+            R.mipmap.skytrain,
+            R.mipmap.favorite,
+            R.mipmap.rate,
+            R.mipmap.feedback
+    };
 
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -130,10 +141,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         //below is for sliding menu
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mActivityTitle = getTitle().toString();
 
         addDrawerItems();
         setupDrawer();
-
+//for the burger view on the left top corner
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
@@ -160,39 +172,29 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     }
 
     private void addDrawerItems() {
-
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mAdapter = new menuAdapter(this, menuArray, iconArray);
         mDrawerList.setAdapter(mAdapter);
-/*
+//click an item
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(osArray[position].equals("View Your Location")) {
-                    Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, MapActivity.class); //pass the intent to TranslinkUI class
-
-                    startActivity(intent);
-                }
+                String menuItem = String.valueOf(parent.getItemAtPosition(position));
+                Toast.makeText(MainActivity.this, menuItem, Toast.LENGTH_SHORT).show();
             }
         });
-        */
     }
-
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Navigation!");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mActivityTitle);
-
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
