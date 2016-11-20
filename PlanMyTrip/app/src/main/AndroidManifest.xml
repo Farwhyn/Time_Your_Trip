@@ -24,8 +24,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait"
             android:label=""
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,9 +34,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".TranslinkUI" />
-        <activity android:name=".alarmTimer"
+        <activity
+            android:name=".alarmTimer"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity android:name=".ConnectDatabase" />
 
         <meta-data
@@ -45,7 +46,13 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyArJAOHyNGYHgCu9iuMrW4L3ugDeDgu9bk" />
+
         <service android:name=".TimerService" />
+
+        <activity
+            android:name=".AllRoutes"
+            android:label="@string/title_activity_all_routes"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

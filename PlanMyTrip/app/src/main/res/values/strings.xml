@@ -22,4 +22,5 @@
         <item>stop3</item>>
     </string-array>
     <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_all_routes">AllRoutes</string>
 </resources>
