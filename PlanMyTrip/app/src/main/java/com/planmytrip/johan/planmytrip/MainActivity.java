@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             else
                 return  false;
         }
-        if(counter == a.length())
+        if(counter == a.length() && Integer.parseInt(a) > 9999 && Integer.parseInt(a) < 100000)
             return true;
         else
             return false;

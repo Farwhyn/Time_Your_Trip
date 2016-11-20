@@ -15,9 +15,5 @@ public class alarmTimertest {
     @Test
     public void AlarmSounds() throws InterruptedException {
 
-        //Initial Conditions tested
-       //assertFalse(alarmTime.mpInfo());
-        //assertFalse(alarmTime.getAlarmEnabled());
-
     }
 }
