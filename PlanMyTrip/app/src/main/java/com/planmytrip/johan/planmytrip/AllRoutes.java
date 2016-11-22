@@ -54,6 +54,15 @@ public class AllRoutes extends AppCompatActivity implements SearchView.OnQueryTe
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
+                String routeNum = filteredRoutes.get(position).substring(0,3);
+                if(routeNum.charAt(2) == ' ') {
+                    routeNum = routeNum.substring(0,1);
+                }
+                Intent intent = new Intent(AllRoutes.this, OfflineStops.class);
+                intent.putExtra("selectedRoute",routeNum);
+                startActivity(intent);
+
+
             }
         });
 

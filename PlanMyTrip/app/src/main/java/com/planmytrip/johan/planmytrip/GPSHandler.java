@@ -37,7 +37,12 @@ public class GPSHandler {
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                ((TimerService)context).gotGPSUpdate(location);
+                if (context instanceof TimerService) {
+                    ((TimerService) context).gotGPSUpdate(location);
+                }
+                else{
+                    ((OfflineService) context).gotGPSUpdate(location);
+                }
             }
 
             @Override

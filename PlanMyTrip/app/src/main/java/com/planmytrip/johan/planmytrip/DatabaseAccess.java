@@ -88,16 +88,13 @@ public class DatabaseAccess {
     //function to see if a bus stop already exists in the database;
     public boolean checkFavorite(String stopcode) {
         Cursor cursor = database.rawQuery("SELECT * FROM favourite WHERE stop_code=" + stopcode, null);
-        if(cursor != null) {
-            if(cursor.moveToFirst()) {
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
                 return true;
-            }
-            else
+            } else
                 return false;
 
-        }
-
-        else
+        } else
             return false;
     }
 
@@ -108,7 +105,7 @@ public class DatabaseAccess {
     public ArrayList<Stop> getFromFavourite() {
         ArrayList<Stop> list = new ArrayList<Stop>();
         Cursor cursor = database.rawQuery("SELECT * FROM favourite", null);
-        if(cursor != null) {
+        if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 Stop stop = new Stop(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
@@ -126,6 +123,67 @@ public class DatabaseAccess {
      *
      * @return a List of bus stops along a route
      */
+
+
+    public ArrayList<Stop> getAllStopsAlongRoute(String route_num) {
+
+        ArrayList<Stop> list = new ArrayList<Stop>();
+        Cursor cursor = database.rawQuery("SELECT route_id FROM routes WHERE route_short_name LIKE '%" + route_num + "%' LIMIT 1", null);
+        Stop newStop;
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    route_id = cursor.getString(0);
+                    Log.d("route id", route_id);
+                }
+            } finally {
+                Log.d("route id", "error");
+                cursor.close();
+            }
+        } else {
+            return null;
+        }
+
+
+        cursor = database.rawQuery("SELECT trip_id AS c FROM trips WHERE route_id=" + route_id, null);
+        if (cursor != null) {
+            try {
+                if (cursor.moveToPosition(2)) {
+                    int count = cursor.getCount();
+                    if (cursor.moveToPosition(count / 2)) {
+                        trip_id = cursor.getString(0);
+                    }
+                    Log.d("trip id", trip_id);
+                }
+            } finally {
+                cursor.close();
+            }
+        } else {
+            return null;
+        }
+
+
+        cursor = database.rawQuery("SELECT s.stop_id, s.stop_code, s.stop_name, s.stop_lat, s.stop_lon FROM stop_times st, stops s WHERE trip_id=" + trip_id
+                + " AND st.stop_id = s.stop_id", null);
+        if (cursor != null) {
+
+            if (cursor.moveToFirst()) {
+                while (!cursor.isAfterLast()) {
+                    newStop = new Stop(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
+                    list.add(newStop);
+                    cursor.moveToNext();
+                }
+
+            }
+
+        } else {
+            Log.d("SQLite error", "bad query");
+        }
+
+        return list;
+
+    }
+
     public ArrayList<Stop> getStops(String route_num, String destination) {
         ArrayList<Stop> list = new ArrayList<Stop>();
         Cursor cursor = database.rawQuery("SELECT * FROM routes WHERE route_short_name LIKE '%" + route_num + "%'", null);
@@ -140,33 +198,36 @@ public class DatabaseAccess {
                 Log.d("route id", "error");
                 cursor.close();
             }
-        }
-
-        else {
+        } else {
             return null;
         }
 
-        if(destination.charAt(0) == 'U' && destination.charAt(2) == 'B' && destination.charAt(4) == 'C'){
-            destination = "UBC";
+        try {
+            if (destination.charAt(0) == 'U' && destination.charAt(2) == 'B' && destination.charAt(4) == 'C') {
+                destination = "UBC";
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+
         }
 
-        cursor = database.rawQuery("SELECT * FROM trips WHERE route_id=" + route_id + " AND trip_headsign LIKE '%" + destination + "%'", null);
+        cursor = database.rawQuery("SELECT trip_id FROM trips WHERE route_id=" + route_id + " AND trip_headsign LIKE '%" + destination + "%'", null);
         if (cursor != null) {
             try {
                 if (cursor.moveToPosition(2)) {
-                    trip_id = cursor.getString(2);
+                    int count = cursor.getCount();
+                    if (cursor.moveToPosition(count / 2)) {
+                        trip_id = cursor.getString(0);
+                    }
                     Log.d("trip id", trip_id);
                 }
             } finally {
                 cursor.close();
             }
-        }
-
-        else {
+        } else {
             return null;
         }
         cursor = database.rawQuery("SELECT * FROM stop_times WHERE trip_id=" + trip_id, null);
-        if(cursor != null) {
+        if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 stop_id = cursor.getString(3);
@@ -186,19 +247,18 @@ public class DatabaseAccess {
                 cursor.moveToNext();
             }
             cursor.close();
-        }
-        else
+        } else
             Log.d("SQLite error", "bad query");
         return list;
     }
 
-    public ArrayList<String> getAllRoutes(){
+    public ArrayList<String> getAllRoutes() {
         ArrayList<String> list = new ArrayList<String>();
         String busRoute = "";
         String routeName = "";
         String both = "";
         Cursor cursor = database.rawQuery("SELECT * FROM routes", null);
-        if(cursor != null) {
+        if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 busRoute = cursor.getString(2);
@@ -211,13 +271,13 @@ public class DatabaseAccess {
         return list;
     }
 
-    public ArrayList<String> getSkytrainRoutes(){
+    public ArrayList<String> getSkytrainRoutes() {
         ArrayList<String> list = new ArrayList<String>();
         String busRoute = "";
         String routeName = "";
         String both = "";
         Cursor cursor = database.rawQuery("SELECT * FROM routes WHERE agency_id=CMBC", null);
-        if(cursor != null) {
+        if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 busRoute = cursor.getString(2);

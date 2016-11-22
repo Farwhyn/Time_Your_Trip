@@ -48,6 +48,7 @@
             android:value="AIzaSyArJAOHyNGYHgCu9iuMrW4L3ugDeDgu9bk" />
 
         <service android:name=".TimerService" />
+        <service android:name=".OfflineService" />
 
         <activity
             android:name=".AllRoutes"
@@ -56,7 +57,9 @@
         <activity
             android:name=".Favourite"
             android:label="@string/title_activity_favourite"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".OfflineStops" />
+        <activity android:name=".OfflineAlarm"></activity>
     </application>
 
 </manifest>
