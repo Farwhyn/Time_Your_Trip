@@ -289,6 +289,11 @@ public class DatabaseAccess {
         }
         return list;
     }
+
+    public void deleteStop(String code) {
+        database.delete("favourite", "stop_code" + "=" + code, null);
+    }
+
 }
 
 
