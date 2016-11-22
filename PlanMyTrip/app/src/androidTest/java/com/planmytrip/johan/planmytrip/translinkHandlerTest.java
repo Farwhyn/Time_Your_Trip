@@ -45,8 +45,6 @@ public class translinkHandlerTest {
         String invalidQuery = "http://api.translink.ca/rttiapi/v1/stops?apikey=1Y8IBRRxW0yYIhxyWswH&lat="+longitude+ "&long=" +latitude+ "&radius=300";
         assertEquals(stopQuery, handlerTester.queryTesting());
         assertNotEquals(invalidQuery, handlerTester.queryTesting());
-
-
          }
 
     @Test

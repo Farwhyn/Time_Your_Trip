@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
 
@@ -261,10 +263,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         menuInflater.inflate(R.menu.menu_main, menu);
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_main, menu);
+
         SearchView searchview= (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        searchview.setInputType(InputType.TYPE_CLASS_NUMBER);
         searchview.setOnQueryTextListener(this);
         searchview.setQueryHint("Enter Stopcode...");
-        //searchview.setBackgroundColor(Color.WHITE);
         return super.onCreateOptionsMenu(menu);
     }
 
