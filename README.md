@@ -85,16 +85,24 @@ Select com.example.johan.planmytrip where all the activities are:
 
 <img width="272" alt="captureg" src="https://cloud.githubusercontent.com/assets/14351017/20193841/aafd9692-a744-11e6-99b9-a6addbb9f61a.PNG">
 
-**alarmTimer**: this activity is responsible for turning on/off the alarm  
+**alarmTimer**: this activity is responsible for turning on/off the alarm 
+**AllRoutes**:this is used when the offline feature is selected so that it returns a list view of all the buses with an autocomplete option 
 **Bus**: this activity is providing the user with infos regarding the bus(route, bus number,estimated leave time and the destination)  
 **ConnectDatabase**: generate the list of the upcoming bus stops provided to the user  
 **DatabaseAccess**: using the created database to send queries so that a listView can be generated  
 **DatabaseOpenHelper**: creating the database  
-**finalQuery**: not being used for the moment  
+**Favourite**: this is responsible for the favourite list where the user can save their frequent bus stops.  
+**GPSchecker**: this activity is for checking whether the GPS mobile is enabled or not. 
 **GPSHandler**: is for checking how far the user is from their destination stop  
 **MainActivity**: this activity is responsible for the launcher page, where the user is expected to enter the bus stop number he/she is at  
 **NextBusesAdapter**: this activity is to generate the list view of the buses provided to the user after he entered the starting bus stop  
-**Stop**: this activity will provide the location of the selected stop  
+**NextStopsAdapter**: this activity is for returning the upcoming bus stops
+**OfflineAlarm**:this activity is for setting the alarm when the offline mode is selected.
+**OfflineService**:
+**OfflineStops**:this is for generating the bus stops for the offline mode.
+**Stop**: this activity will provide the location of the selected stop
+**SwipeDetector**: this activity is for deleting a bus stop from the favorite list by swipping it left.  
+**TimerService**: this activity contains the algorithm of the time, check the dest, and update the time in the online mode
 **TranslinkHandler**: this activity is where we are extracting the infos from translink API and parsing them to a JSON object or JSON array  
 **TranslinkUI**: this activity is for providing the user with the buses that they can take from their starting location
 
