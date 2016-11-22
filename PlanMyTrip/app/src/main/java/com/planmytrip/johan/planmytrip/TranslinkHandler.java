@@ -424,7 +424,14 @@ public class TranslinkHandler {
                             jsonobjectBusInfo = busArray.getJSONObject(j);
                             String destination = jsonobjectBusInfo.getString("Destination");
                             String expectedLeaveTime = jsonobjectBusInfo.getString("ExpectedLeaveTime");
-                            queryTested = "JSON TESTS PASSED";
+                            if(routeNo == "AnyRoute")
+                                if(routeName == "AnyName")
+                                    if(destination == "AnyDestination")
+                                        if(expectedLeaveTime == "10:30am")
+                                              queryTested = "JSON TESTS PASSED";
+
+                            else
+                                            queryTested = "JSON TESTS FAILED";
 
                         } catch (JSONException e) {
                             System.out.print("Error parsing JSONArray" + e.toString());

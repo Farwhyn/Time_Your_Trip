@@ -115,6 +115,7 @@ public class translinkHandlerTest {
 
         handlerTester.translinkRequestResponded(7, jsonArray, null, null);
         assertEquals(handlerTester.queryTesting(), "JSON TESTS PASSED");
+        assertNotEquals(handlerTester.queryTesting(), "JSON TESTS FAILED");
 
     }
 
