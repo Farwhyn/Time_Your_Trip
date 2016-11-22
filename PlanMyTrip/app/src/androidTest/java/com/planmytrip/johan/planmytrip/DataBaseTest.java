@@ -8,6 +8,7 @@ import static android.support.test.InstrumentationRegistry.getTargetContext;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.MediumTest;
 import android.support.test.runner.AndroidJUnit4;
 
 import junit.framework.Assert;
@@ -23,6 +24,7 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
+@MediumTest
 public class DataBaseTest {
     private DatabaseAccess access;
     private SQLiteDatabase database;

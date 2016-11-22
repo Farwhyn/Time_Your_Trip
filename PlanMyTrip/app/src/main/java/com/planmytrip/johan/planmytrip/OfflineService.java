@@ -164,7 +164,7 @@ public class OfflineService extends Service {
         outMessenger = messenger;
     }
 
-    private String convertDistance(double distance){
+    public String convertDistance(double distance){
         if(distance > 1000){
             return String.format("%.1f", distance/1000) + " Kilometers";
         }
