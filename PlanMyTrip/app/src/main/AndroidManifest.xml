@@ -59,7 +59,11 @@
             android:label="@string/title_activity_favourite"
             android:theme="@style/AppTheme" />
         <activity android:name=".OfflineStops" />
-        <activity android:name=".OfflineAlarm"></activity>
+        <activity android:name=".OfflineAlarm" />
+        <activity
+            android:name=".DirectionActivity"
+            android:label="@string/title_activity_direction"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

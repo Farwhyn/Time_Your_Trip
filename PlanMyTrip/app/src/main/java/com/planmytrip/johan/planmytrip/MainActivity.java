@@ -115,20 +115,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                             locationManager = new GPSchecker(locationManagerContext);
                       }
 
-        /*
-        if(!locationManager.isLocationEnabled()){
-            showAlert();
-        }
-*/
-
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
 
-        //databaseAccess = DatabaseAccess.getInstance(this);
-       // databaseAccess.open();
         markers = new ArrayList<Marker>();
         SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -268,6 +260,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         searchview.setInputType(InputType.TYPE_CLASS_NUMBER);
         searchview.setOnQueryTextListener(this);
         searchview.setQueryHint("Enter Stopcode...");
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -587,5 +580,4 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 */
-
 }
