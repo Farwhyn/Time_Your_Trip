@@ -32,6 +32,8 @@ public class TranslinkHandler {
 
     private Context context;
 
+    private String queryTested;
+
     //constructor
     public TranslinkHandler(Context activity){
         this.context = activity;
@@ -40,31 +42,37 @@ public class TranslinkHandler {
     //function that sends an http request for buses based on stopcode
     public void getNextBuses(String stopNo){
         String url = "http://api.translink.ca/rttiapi/v1/stops/"+ stopNo + "/estimates?apikey=1Y8IBRRxW0yYIhxyWswH";
+        queryTested = url;
         myJSONArrayRequest(url, 1);
     }
 
     public void getNearestStops(String lat, String lon){
         String url = "http://api.translink.ca/rttiapi/v1/stops?apikey=1Y8IBRRxW0yYIhxyWswH&lat="+ lat + "&long=" + lon + "&radius=300";
+        queryTested = url;
         myJSONArrayRequest(url, 2);
     }
 
     public void getStopsForRoute() {
         String url = "http://api.translink.ca/rttiapi/v1/routes/351?apikey=1Y8IBRRxW0yYIhxyWswH";
+        queryTested = url;
         myJSONObjectRequest(url, 3);
     }
 
     public void getCoordinatesForStop(String stopNo) {
         String url = "http://api.translink.ca/rttiapi/v1/stops/" + stopNo +" ?apikey=1Y8IBRRxW0yYIhxyWswH";
+        queryTested = url;
         myJSONObjectRequest(url, 5);
     }
 
     public void getEstimatedTimeFromGoogle(String startLatitude, String startLongitude, String destLatitude, String destLongitude,String departureTime) {
         String url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins="+ startLatitude + "," + startLongitude +"&destinations=" + destLatitude + "," + destLongitude +"&mode=transit&departure_time="+departureTime+"&key=AIzaSyAIKdSYquNCT6LaIAK1iVzv-CxO9HbPzNg";
+        queryTested = url;
         myJSONObjectRequest(url, 4);
     }
 
     public void getStopInfo(String stopNo) {
         String url = "http://api.translink.ca/rttiapi/v1/stops/" + stopNo + "?apikey=1Y8IBRRxW0yYIhxyWswH";
+        queryTested = url;
         myJSONObjectRequest(url, 5);
     }
 
@@ -113,6 +121,7 @@ public class TranslinkHandler {
 
         if (errorMsg == null) {
             ArrayList<Bus> nextBuses = new ArrayList<Bus>();
+
             for (int i = 0; i < response.length(); i++) {
                 JSONObject jsonobject;
                 try {
@@ -241,7 +250,7 @@ public class TranslinkHandler {
         }
     }
 
-    private void translinkRequestResponded(int inputID, JSONArray jsonArray, JSONObject jsonObject, String errorMsg){
+    public void translinkRequestResponded(int inputID, JSONArray jsonArray, JSONObject jsonObject, String errorMsg){
 
         switch(inputID){
             case 1:
@@ -390,4 +399,7 @@ public class TranslinkHandler {
         queue.add(jsonRequest);
     }
 
+    public String queryTesting(){
+        return queryTested;
+    }
 }
