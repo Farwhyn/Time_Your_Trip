@@ -1,9 +1,11 @@
 package com.planmytrip.johan.planmytrip;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -29,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.Menu;
 
@@ -198,6 +201,34 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                             initCamera(mLastLocation);
                         }
                         break;
+                    case "Feedback":
+                        Intent i = new Intent(Intent.ACTION_SEND);
+                        i.setType("message/rfc822");
+                        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"navjashansingh@gmail.com"});
+                        i.putExtra(Intent.EXTRA_SUBJECT, getResources().getString(R.string.mailToDeveloper));
+                        i.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.mailToDeveloperText));
+                        try {
+                            startActivity(Intent.createChooser(i, getResources().getString(R.string.sendMail)));
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(MainActivity.this, getResources().getString(R.string.noMailProgramFound), Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case "Rate the app":
+                        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                        // To count with Play market backstack, After pressing back button,
+                        // to taken back to our application, we need to add following flags to intent.
+                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                        try {
+                            startActivity(goToMarket);
+                        } catch (ActivityNotFoundException e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                        }
+
+                        break;
                     default:
                         Toast.makeText(MainActivity.this, menuItem, Toast.LENGTH_SHORT).show();
                         break;
@@ -264,7 +295,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         SearchView searchview= (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         searchview.setOnQueryTextListener(this);
         searchview.setQueryHint("Enter Stopcode...");
-        //searchview.setBackgroundColor(Color.WHITE);
         return super.onCreateOptionsMenu(menu);
     }
 
