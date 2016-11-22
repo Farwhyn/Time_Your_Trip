@@ -153,7 +153,11 @@ public class TranslinkHandler {
         else{
             //got error 302, 404,
             //302 connected to network but no internet
-            ((MainActivity)context).nextBusesQueryReturned(null, "A server error occured. Please check if the stop number is correct. (" + errorMsg+ ")");
+            //((MainActivity)context).nextBusesQueryReturned(null, "A server error occured. Please check if the stop number is correct. (" + errorMsg+ ")");
+            if(this.context instanceof MainActivity)
+                ((MainActivity)context).nextBusesQueryReturned(null, "No buses running at this time");
+            else
+                ((Favourite)context).nextBusesQueryReturned(null, "No buses operational at this time");
         }
 
     }

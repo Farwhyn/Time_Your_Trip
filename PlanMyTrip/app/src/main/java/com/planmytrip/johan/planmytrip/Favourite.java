@@ -26,6 +26,8 @@ public class Favourite extends AppCompatActivity {
     private TranslinkHandler handler;
     private String stopNo;
     private RelativeLayout loadingPanel; // loading circle
+    private NextStopsAdapter adapter;
+    private SwipeDetector swipeDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,31 +40,52 @@ public class Favourite extends AppCompatActivity {
         toolbar.setTitle("My Favourite Stops");
         setSupportActionBar(toolbar);
         handler = new TranslinkHandler(this);
+        swipeDetector = new SwipeDetector();
         db = DatabaseAccess.getInstance(this);
         db.open();
         stops = db.getFromFavourite();
         db.close();
-        listView.setAdapter(new NextStopsAdapter(this, stops));
+        adapter = new NextStopsAdapter(this, stops);
+        listView.setAdapter(adapter);
+        listView.setOnTouchListener(swipeDetector);
+        //listView.setOnItemClickListener(listener);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+
                 String code = stops.get(position).getStopCode();
                 stopNo = code;
-                if(code.length() == 5 && isInteger(code)){
-                    if (isNetworkAvailable()) {
-                        handler.getNextBuses(code); //initialize a get bus http request based on input
-                        loadingPanel.setVisibility(View.VISIBLE); //set the loading wheel to visible
-                    }
-                    else {
-                        showError("NO NETWORK AVAILABLE"); //toast that no network is available
+
+                if(swipeDetector.swipeDetected()) {
+                    if(swipeDetector.getAction() == SwipeDetector.Action.LR) {
+                        db.open();
+                        db.deleteStop(code);
+                        db.close();
+                        Stop stop = stops.get(position);
+                        stops.remove(stop);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(getApplicationContext(), "Stop #" + stopNo + " has been removed from Favourites", Toast.LENGTH_SHORT).show();
+
                     }
                 }
-                else{
-                    showError("INVALID BUS STOP NUMBER");
+
+                else {
+
+
+                    if (code.length() == 5 && isInteger(code)) {
+                        if (isNetworkAvailable()) {
+                            handler.getNextBuses(code); //initialize a get bus http request based on input
+                            loadingPanel.setVisibility(View.VISIBLE); //set the loading wheel to visible
+                        } else {
+                            showError("NO NETWORK AVAILABLE"); //toast that no network is available
+                        }
+                    } else {
+                        showError("INVALID BUS STOP NUMBER");
+                    }
+
                 }
-
-
             }
         });
 
@@ -116,6 +139,16 @@ public class Favourite extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        db.open();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        db.close();
+    }
 
 }

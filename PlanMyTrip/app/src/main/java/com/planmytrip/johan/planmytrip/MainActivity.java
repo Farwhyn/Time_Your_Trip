@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             R.mipmap.feedback
     };
 
+    private boolean first = true;
+
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -415,8 +417,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
             if (mLastLocation != null) {
                 //Toast.makeText(getApplicationContext(), mLastLocation.getLatitude() + " " + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-                initCamera(mLastLocation);
-                if(mLastLocation != null) {
+                if(first) {
+                    initCamera(mLastLocation);
+                    first = false;
+                }
+                if(mLastLocation != null && isNetworkAvailable()) {
                     DecimalFormat df = new DecimalFormat("#.####");
                     df.setRoundingMode(RoundingMode.CEILING);
                     String la = df.format(mLastLocation.getLatitude());
