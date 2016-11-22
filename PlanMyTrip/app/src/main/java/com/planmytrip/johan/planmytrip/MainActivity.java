@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle = "Time Your Trip";
-    private String[] menuArray = { "Bus Stops Around Me", "Online Mode",  "View My Location", "Show Bus Routes", "Show Skytrain",
+    private String[] menuArray = { "Bus Stops Around Me", "Online Mode",  "View My Location", "Offline Mode", "Show Skytrain",
             "My Favourite List", "Rate the app", "Feedback"};
     private Integer[] iconArray = {
             R.mipmap.list,
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                         intent = new Intent(MainActivity.this, Favourite.class);
                         startActivity(intent);
                         break;
-                    case "Show Bus Routes":
+                    case "Offline Mode":
                         intent = new Intent(MainActivity.this, AllRoutes.class);
                         //intent.putExtra("selectedRoute",nextBuses.get(position).getBusNo());
                         startActivity(intent);
