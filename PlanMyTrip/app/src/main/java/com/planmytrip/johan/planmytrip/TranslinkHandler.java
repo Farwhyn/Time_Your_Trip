@@ -150,6 +150,7 @@ public class TranslinkHandler {
                 }
             }
 
+
             System.out.print(nextBuses.toString());
             if(this.context instanceof MainActivity)
                 ((MainActivity)context).nextBusesQueryReturned(nextBuses, null);
@@ -274,6 +275,9 @@ public class TranslinkHandler {
                 break;
             case 6:
                 getNearestBusStopServingRouteReturned(jsonArray,errorMsg);
+                break;
+            case 7:
+                testingJSON(jsonArray, errorMsg);
                 break;
             default: break;
         }
@@ -401,6 +405,40 @@ public class TranslinkHandler {
 
         };
         queue.add(jsonRequest);
+    }
+
+    public void testingJSON(JSONArray response, String errorMsg) {
+        if (errorMsg == null) {
+            ArrayList<Bus> nextBuses = new ArrayList<Bus>();
+
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject jsonobject;
+                try {
+                    jsonobject = response.getJSONObject(i);
+                    String routeNo = jsonobject.getString("RouteNo");
+                    String routeName = jsonobject.getString("RouteName");
+                    JSONArray busArray = jsonobject.getJSONArray("Schedules");
+                    for (int j = 0; j <1; j++) {
+                        JSONObject jsonobjectBusInfo;
+                        try {
+                            jsonobjectBusInfo = busArray.getJSONObject(j);
+                            String destination = jsonobjectBusInfo.getString("Destination");
+                            String expectedLeaveTime = jsonobjectBusInfo.getString("ExpectedLeaveTime");
+                            queryTested = "JSON TESTS PASSED";
+
+                        } catch (JSONException e) {
+                            System.out.print("Error parsing JSONArray" + e.toString());
+                        }
+
+                    }
+
+
+                } catch (JSONException e) {
+                    System.out.print("Error parsing JSONArray" + e.toString());
+                }
+            }
+
+        }
     }
 
     public String queryTesting(){

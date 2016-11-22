@@ -4,6 +4,9 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +33,9 @@ public class translinkHandlerTest {
     public void setUp() {
         mContext = InstrumentationRegistry.getContext();
         handlerTester = new TranslinkHandler(mContext);
+
+
+
     }
 
     @Test
@@ -78,5 +84,38 @@ public class translinkHandlerTest {
         assertEquals(expectedStopQuery, handlerTester.queryTesting());
     }
 
+    @Test
+    public void testTranslinkRequestResponse(){
+
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
+
+        JSONArray busArray = new JSONArray();
+        JSONObject busObject = new JSONObject();
+
+        try{
+            busObject.put("Destination","AnyDestination");
+            busObject.put("ExpectedLeaveTime", "10:30am");
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        busArray.put(busObject);
+
+        try {
+            jsonObject.put("RouteNo", "AnyRoute");
+            jsonObject.put("RouteName", "AnyName");
+            jsonObject.put("Schedules", busArray );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        jsonArray.put(jsonObject);
+
+        handlerTester.translinkRequestResponded(7, jsonArray, null, null);
+        assertEquals(handlerTester.queryTesting(), "JSON TESTS PASSED");
+
+    }
 
 }
