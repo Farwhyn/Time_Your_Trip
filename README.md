@@ -96,17 +96,17 @@ Select com.example.johan.planmytrip where all the activities are:
 **GPSHandler**: is for checking how far the user is from their destination stop  
 **MainActivity**: this activity is responsible for the launcher page, where the user is expected to enter the bus stop number he/she is at  
 **NextBusesAdapter**: this activity is to generate the list view of the buses provided to the user after he entered the starting bus stop  
-**NextStopsAdapter**: this activity is for returning the upcoming bus stops
-**OfflineAlarm**:this activity is for setting the alarm when the offline mode is selected.
-**OfflineService**:
-**OfflineStops**:this is for generating the bus stops for the offline mode.
-**Stop**: this activity will provide the location of the selected stop
-**SwipeDetector**: this activity is for deleting a bus stop from the favorite list by swipping it left.  
+**NextStopsAdapter**: this activity is for returning the upcoming bus stops  
+**OfflineAlarm**:this activity is for setting the alarm when the offline mode is selected.  
+**OfflineService**:  
+**OfflineStops**:this is for generating the bus stops for the offline mode.  
+**Stop**: this activity will provide the location of the selected stop  
+**SwipeDetector**: this activity is for deleting a bus stop from the favourite list by swipping it left.  
 **TimerService**: this activity contains the algorithm of the time, check the dest, and update the time in the online mode
-**TranslinkHandler**: this activity is where we are extracting the infos from translink API and parsing them to a JSON object or JSON array  
+**TranslinkHandler**: this activity is where we are extracting the infos from Translink API and parsing them to a JSON object or JSON array  
 **TranslinkUI**: this activity is for providing the user with the buses that they can take from their starting location
 
 
 ##Design patterns used: 
-* Observer pattern
+* Observer pattern  
 As for the whole system, UI reflects the change of the states of the APP. Every time the state changes, it updates.
