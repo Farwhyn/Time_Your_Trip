@@ -70,10 +70,10 @@ There are two folders that contain different tests for our application.
 
 
 ####Unit Tests
-1.In the project source code, go to PlanMyTrip\app\src;
-2.Under the “test” folder, click on the “java” then “com.example...”;
-3.To run the unit tests, right click on the file and select “run ‘NameofTheTests’” ;
-4.The result should also shown on the bottom “Run:” console.
+1.In the project source code, go to PlanMyTrip\app\src;  
+2.Under the “test” folder, click on the “java” then “com.example...”;  
+3.To run the unit tests, right click on the file and select “run ‘NameofTheTests’”;  
+4.The result should also shown on the bottom “Run:” console.  
 You can always switch back to test the application by clicking on the dropdown list and choose app as shown in the following picture:  
 <img width="228" alt="capturebs" src="https://cloud.githubusercontent.com/assets/14351017/20193743/43ebab7e-a744-11e6-9eda-f73a2843e996.PNG">
 
