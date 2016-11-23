@@ -85,15 +85,15 @@ Select com.example.johan.planmytrip where all the activities are:
 
 <img width="272" alt="captureg" src="https://cloud.githubusercontent.com/assets/14351017/20193841/aafd9692-a744-11e6-99b9-a6addbb9f61a.PNG">
 
-**alarmTimer**: this activity is responsible for turning on/off the alarm 
-**AllRoutes**:this is used when the offline feature is selected so that it returns a list view of all the buses with an autocomplete option 
+**alarmTimer**: this activity is responsible for turning on/off the alarm  
+**AllRoutes**:this is used when the offline feature is selected so that it returns a list view of all the buses with an autocomplete option   
 **Bus**: this activity is providing the user with infos regarding the bus(route, bus number,estimated leave time and the destination)  
 **ConnectDatabase**: generate the list of the upcoming bus stops provided to the user  
 **DatabaseAccess**: using the created database to send queries so that a listView can be generated  
 **DatabaseOpenHelper**: creating the database  
 **Favourite**: this is responsible for the favourite list where the user can save their frequent bus stops.  
-**GPSchecker**: this activity is for checking whether the GPS mobile is enabled or not. 
-**GPSHandler**: is for checking how far the user is from their destination stop  
+**GPSchecker**: this activity is for checking whether the GPS mobile is enabled or not     
+**GPSHandler**: is for checking how far the user is from their destination stop     
 **MainActivity**: this activity is responsible for the launcher page, where the user is expected to enter the bus stop number he/she is at  
 **NextBusesAdapter**: this activity is to generate the list view of the buses provided to the user after he entered the starting bus stop  
 **NextStopsAdapter**: this activity is for returning the upcoming bus stops  
