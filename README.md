@@ -70,10 +70,10 @@ There are two folders that contain different tests for our application.
 
 
 ####Unit Tests
-1.In the project source code, go to PlanMyTrip\app\src;
-2.Under the “test” folder, click on the “java” then “com.example...”;
-3.To run the unit tests, right click on the file and select “run ‘NameofTheTests’” ;
-4.The result should also shown on the bottom “Run:” console.
+1.In the project source code, go to PlanMyTrip\app\src;  
+2.Under the “test” folder, click on the “java” then “com.example...”;  
+3.To run the unit tests, right click on the file and select “run ‘NameofTheTests’”;  
+4.The result should also shown on the bottom “Run:” console.  
 You can always switch back to test the application by clicking on the dropdown list and choose app as shown in the following picture:  
 <img width="228" alt="capturebs" src="https://cloud.githubusercontent.com/assets/14351017/20193743/43ebab7e-a744-11e6-9eda-f73a2843e996.PNG">
 
@@ -86,19 +86,27 @@ Select com.example.johan.planmytrip where all the activities are:
 <img width="272" alt="captureg" src="https://cloud.githubusercontent.com/assets/14351017/20193841/aafd9692-a744-11e6-99b9-a6addbb9f61a.PNG">
 
 **alarmTimer**: this activity is responsible for turning on/off the alarm  
+**AllRoutes**:this is used when the offline feature is selected so that it returns a list view of all the buses with an autocomplete option   
 **Bus**: this activity is providing the user with infos regarding the bus(route, bus number,estimated leave time and the destination)  
 **ConnectDatabase**: generate the list of the upcoming bus stops provided to the user  
 **DatabaseAccess**: using the created database to send queries so that a listView can be generated  
 **DatabaseOpenHelper**: creating the database  
-**finalQuery**: not being used for the moment  
-**GPSHandler**: is for checking how far the user is from their destination stop  
+**Favourite**: this is responsible for the favourite list where the user can save their frequent bus stops.  
+**GPSchecker**: this activity is for checking whether the GPS mobile is enabled or not     
+**GPSHandler**: is for checking how far the user is from their destination stop     
 **MainActivity**: this activity is responsible for the launcher page, where the user is expected to enter the bus stop number he/she is at  
 **NextBusesAdapter**: this activity is to generate the list view of the buses provided to the user after he entered the starting bus stop  
+**NextStopsAdapter**: this activity is for returning the upcoming bus stops  
+**OfflineAlarm**:this activity is for setting the alarm when the offline mode is selected.  
+**OfflineService**:  
+**OfflineStops**:this is for generating the bus stops for the offline mode.  
 **Stop**: this activity will provide the location of the selected stop  
-**TranslinkHandler**: this activity is where we are extracting the infos from translink API and parsing them to a JSON object or JSON array  
+**SwipeDetector**: this activity is for deleting a bus stop from the favourite list by swipping it left.  
+**TimerService**: this activity contains the algorithm of the time, check the dest, and update the time in the online mode
+**TranslinkHandler**: this activity is where we are extracting the infos from Translink API and parsing them to a JSON object or JSON array  
 **TranslinkUI**: this activity is for providing the user with the buses that they can take from their starting location
 
 
 ##Design patterns used: 
-* Observer pattern
+* Observer pattern  
 As for the whole system, UI reflects the change of the states of the APP. Every time the state changes, it updates.

@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.planmytrip.johan.planmytrip.Stop;
 
@@ -210,7 +211,7 @@ public class DatabaseAccess {
 
         }
 
-        cursor = database.rawQuery("SELECT trip_id FROM trips WHERE route_id=" + route_id + " AND trip_headsign LIKE '%" + destination + "%'", null);
+        cursor = database.rawQuery("SELECT trip_id FROM trips WHERE route_id= '" + route_id + "' AND trip_headsign LIKE '%" + destination + "%'", null);
         if (cursor != null) {
             try {
                 if (cursor.moveToPosition(2)) {
@@ -224,7 +225,8 @@ public class DatabaseAccess {
                 cursor.close();
             }
         } else {
-            return null;
+            Log.d("trip id", destination);
+            return list;
         }
         cursor = database.rawQuery("SELECT * FROM stop_times WHERE trip_id=" + trip_id, null);
         if (cursor != null) {
@@ -247,8 +249,10 @@ public class DatabaseAccess {
                 cursor.moveToNext();
             }
             cursor.close();
-        } else
-            Log.d("SQLite error", "bad query");
+        } else {
+            return list;
+        }
+
         return list;
     }
 

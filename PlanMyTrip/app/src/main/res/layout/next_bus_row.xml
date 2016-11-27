@@ -1,33 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="49dp"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
 
-        android:id="@+id/busNumber"/>
-
-    <TextView
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:id="@+id/direction"/>
+        android:id="@+id/busNumber"
+        android:layout_alignBaseline="@+id/direction"
+        android:layout_alignBottom="@+id/direction"
+        android:layout_toLeftOf="@+id/direction"
+        android:layout_toStartOf="@+id/direction"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp" />
 
     <TextView
-        android:layout_width="81dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:id="@+id/leaveTime"/>
+        android:id="@+id/direction"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
-</LinearLayout>
+    <TextView
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/leaveTime"
+        android:layout_alignBaseline="@+id/direction"
+        android:layout_alignBottom="@+id/direction"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp" />
+
+</RelativeLayout>

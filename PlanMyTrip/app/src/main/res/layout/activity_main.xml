@@ -42,13 +42,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
+            android:progressTint="#0649B6"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="-15dp"
-            android:layout_marginLeft="140dp" />
+            android:layout_marginLeft="140dp"
+            android:indeterminateTint="#0649B6" />
     </RelativeLayout>
 
 
@@ -56,11 +58,11 @@
 
     <!-- Side navigation drawer UI -->
 <ListView
-android:id="@+id/navList"
-android:layout_width="200dp"
+    android:id="@+id/navList"
+    android:layout_width="200dp"
     android:layout_gravity="left|start"
-android:background="#ffeeeeee"
-tools:ignore="RtlHardcoded"
+    android:background="#ffeeeeee"
+    tools:ignore="RtlHardcoded"
     android:layout_height="match_parent"
     android:layout_marginTop="57dp" />
     <!--<a href="https://icons8.com/web-app/3781/Marker">Marker icon credits</a>-->

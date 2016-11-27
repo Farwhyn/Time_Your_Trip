@@ -36,6 +36,7 @@ public class AllRoutes extends AppCompatActivity implements SearchView.OnQueryTe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_routes);
 
+
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.setTitle("All Routes");

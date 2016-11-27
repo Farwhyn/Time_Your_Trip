@@ -67,6 +67,8 @@ public class TranslinkUI extends AppCompatActivity {
                     int i = a.indexOf("'");
                     c = a.substring(0, i) + "'" + a.substring(i, a.length());
                 }
+                //String b = c.replaceAll("-", "");
+                //Toast.makeText(getApplicationContext(), b, Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(TranslinkUI.this, ConnectDatabase.class);
                 intent.putExtra("selectedRoute", nextBuses.get(position).getBusNo());
@@ -78,6 +80,7 @@ public class TranslinkUI extends AppCompatActivity {
     }
 
     public void onClickStar(View view){
+        db.open();
         if(!db.checkFavorite(stopNo)) {
             Stop stop = db.getOriginalStop(stopNo);
             db.writeToFavourite(stop);
@@ -86,6 +89,7 @@ public class TranslinkUI extends AppCompatActivity {
         else {
             Toast.makeText(getBaseContext(), "You've already added this stop", Toast.LENGTH_SHORT).show();
         }
+        db.close();
     }
 
     public void routeStopsQueryReturned(String result, String errorMsg){
@@ -119,18 +123,6 @@ public class TranslinkUI extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStart() {
 
-        super.onStart();
-       db.open();
-    }
-
-    @Override
-    protected void onStop() {
-
-        super.onStop();
-        db.close();
-    }
 
 }

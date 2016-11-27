@@ -24,11 +24,10 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="title_activity_all_routes">AllRoutes</string>
     <string name="title_activity_favourite">Favourite</string>
-
-
     <string name="mailToDeveloper">Send Feedback</string>
     <string name="mailToDeveloperText">I would like to tell you the following about the mark manager app:</string>
     <string name="sendMail">Send Feedback</string>
     <string name="noMailProgramFound">No e-mail app found.</string>
-
+    <string name="title_activity_direction">DirectionActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

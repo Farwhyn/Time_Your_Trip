@@ -73,13 +73,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle = "Time Your Trip";
-    private String[] menuArray = { "Bus Stops Around Me", "Online Mode",  "View My Location", "Offline Mode", "Show Skytrain",
+    private String[] menuArray = { "Bus Stops Around Me", "View Buses",  "View My Location", "Offline Mode", "Show Skytrain",
             "My Favourite List", "Rate the app", "Feedback"};
     private Integer[] iconArray = {
             R.mipmap.list,
-            R.mipmap.setting,
-            R.mipmap.mylocation,
             R.mipmap.bus,
+            R.mipmap.mylocation,
+            R.mipmap.setting,
             R.mipmap.skytrain,
             R.mipmap.favorite,
             R.mipmap.rate,
@@ -117,20 +117,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                             locationManager = new GPSchecker(locationManagerContext);
                       }
 
-        /*
-        if(!locationManager.isLocationEnabled()){
-            showAlert();
-        }
-*/
-
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
 
-        //databaseAccess = DatabaseAccess.getInstance(this);
-       // databaseAccess.open();
         markers = new ArrayList<Marker>();
         SupportMapFragment mapFragment = (SupportMapFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -298,6 +290,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         searchview.setInputType(InputType.TYPE_CLASS_NUMBER);
         searchview.setOnQueryTextListener(this);
         searchview.setQueryHint("Enter Stopcode...");
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -617,5 +610,4 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
 */
-
 }
