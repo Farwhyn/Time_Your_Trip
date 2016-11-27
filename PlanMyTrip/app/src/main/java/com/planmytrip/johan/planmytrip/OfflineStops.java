@@ -53,7 +53,6 @@ public class OfflineStops extends AppCompatActivity{
                 //Intent intent = new Intent(ConnectDatabase.this, ConnectDatabase.class);
                 // intent.putExtra("selectedRoute",nextBuses.get(position).getBusNo());
                 //startActivity(intent);)
-
                     Intent intent = new Intent(OfflineStops.this, OfflineAlarm.class);
                     intent.putExtra("destination", stops.get(position));
                     startActivity(intent);
@@ -62,10 +61,6 @@ public class OfflineStops extends AppCompatActivity{
         });
 
     }
-
-
-
-
 
 
 }

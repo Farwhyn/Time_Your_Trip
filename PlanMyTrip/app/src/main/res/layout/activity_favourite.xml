@@ -42,7 +42,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="-15dp"
-            android:layout_marginLeft="140dp" />
+            android:layout_marginLeft="140dp"
+            android:indeterminateTint="#0649B6" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
