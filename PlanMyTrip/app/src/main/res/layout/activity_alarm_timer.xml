@@ -14,8 +14,7 @@
     android:layout_marginBottom="0dp"
     android:layout_marginEnd="0dp"
     android:layout_marginStart="0dp"
-    android:layout_marginTop="0dp"
-    android:elevation="24dp">
+    android:layout_marginTop="0dp">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -24,6 +23,19 @@
         android:theme="?attr/actionBarTheme"
         android:minHeight="?attr/actionBarSize"
         android:id="@+id/toolbar3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:hint="@string/timer"
+        android:textSize="30sp"
+        android:textColor="#000000"
+        android:textAlignment="center"
+        android:layout_alignBottom="@+id/locationTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"
+        android:textStyle="normal|bold" />
 
     <TextView
         android:text="@string/you_will_reach_your_destination"
@@ -53,55 +65,40 @@
     <TextView
         android:text="@string/arrive_in"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/timer"
         android:layout_marginTop="60dp"
         android:textSize="30sp"
         android:textColor="#0649B6"
         android:layout_below="@+id/toolbar3"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:hint="@string/timer"
-        android:textSize="30sp"
-        android:textColor="#000000"
-        android:textAlignment="center"
-        android:layout_alignBottom="@+id/locationTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="47dp"
-        android:textStyle="normal|bold" />
+        android:layout_height="40dp" />
 
     <Button
         android:text="@string/stopalarm"
-        android:layout_height="40dp"
         android:id="@+id/button3"
         android:textColor="#ffffff"
         android:layout_width="100dp"
+        android:background="@color/common_signin_btn_default_background"
         android:layout_marginBottom="130dp"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/timer"
         android:layout_alignEnd="@+id/timer"
-        android:background="@color/common_signin_btn_default_background"
-        android:layout_marginEnd="-6dp" />
+        android:layout_marginTop="0dp"
+        android:layout_height="40dp" />
 
     <Button
         android:text="RESET"
         android:id="@+id/button4"
-        android:onClick="onClick"
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:layout_alignTop="@+id/button3"
-        android:layout_toLeftOf="@+id/locationTextView"
-        android:layout_toStartOf="@+id/locationTextView"
-        android:layout_marginEnd="39dp"
         android:textColor="#ffffff"
-        android:background="?android:attr/colorButtonNormal"
-        android:layout_alignBottom="@+id/button3"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="0dp" />
+        android:layout_width="100dp"
+        android:background="?attr/colorButtonNormal"
+        android:layout_alignTop="@+id/button3"
+        android:layout_alignLeft="@+id/timer"
+        android:layout_alignStart="@+id/timer"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="0dp"
+        android:onClick="onClick (alarmTimer)"
+        android:layout_height="40dp" />
 
 
 </RelativeLayout>
