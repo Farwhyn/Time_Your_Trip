@@ -30,6 +30,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -288,9 +289,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         SearchView searchview= (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         searchview.setInputType(InputType.TYPE_CLASS_NUMBER);
+        EditText searchEditText = (EditText) searchview.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(getResources().getColor(R.color.white));
+        searchEditText.setHintTextColor(getResources().getColor(R.color.white));
         searchview.setOnQueryTextListener(this);
         searchview.setQueryHint("Enter Stopcode...");
-
         return super.onCreateOptionsMenu(menu);
     }
 

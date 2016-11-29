@@ -14,7 +14,8 @@
     android:layout_marginBottom="0dp"
     android:layout_marginEnd="0dp"
     android:layout_marginStart="0dp"
-    android:layout_marginTop="0dp">
+    android:layout_marginTop="0dp"
+    android:elevation="24dp">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -70,32 +71,37 @@
         android:textAlignment="center"
         android:layout_alignBottom="@+id/locationTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="47dp" />
+        android:layout_marginBottom="47dp"
+        android:textStyle="normal|bold" />
 
     <Button
         android:text="@string/stopalarm"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/button3"
-        android:textColor="@android:color/holo_red_light"
+        android:textColor="#ffffff"
         android:layout_width="100dp"
-        android:layout_marginBottom="87dp"
+        android:layout_marginBottom="130dp"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/timer"
-        android:layout_alignEnd="@+id/timer" />
+        android:layout_alignEnd="@+id/timer"
+        android:background="@color/common_signin_btn_default_background"
+        android:layout_marginEnd="-6dp" />
 
     <Button
         android:text="RESET"
         android:id="@+id/button4"
-        android:textColor="@android:color/holo_red_light"
         android:onClick="onClick"
         android:layout_width="100dp"
         android:layout_height="match_parent"
         android:layout_alignTop="@+id/button3"
         android:layout_toLeftOf="@+id/locationTextView"
         android:layout_toStartOf="@+id/locationTextView"
-        android:layout_marginRight="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_alignBottom="@+id/button3" />
+        android:layout_marginEnd="39dp"
+        android:textColor="#ffffff"
+        android:background="?android:attr/colorButtonNormal"
+        android:layout_alignBottom="@+id/button3"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="0dp" />
 
 
 </RelativeLayout>

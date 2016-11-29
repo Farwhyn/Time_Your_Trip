@@ -19,28 +19,31 @@
         android:layout_width="match_parent"
         android:layout_height="91dp"
         android:id="@+id/locationTextView"
-        android:textSize="13sp"
+        android:textSize="30sp"
         android:layout_marginTop="100dp"
         android:layout_below="@+id/timer"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="120dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textAlignment="center"
+        android:textStyle="normal|bold" />
 
 
     <Button
         android:text="@string/stopalarm"
-        android:layout_width="wrap_content"
+        android:layout_width="117dp"
         android:id="@+id/button3"
-        android:textColor="@android:color/holo_red_light"
         android:layout_below="@+id/locationTextView"
         android:layout_toRightOf="@+id/textView3"
         android:layout_toEndOf="@+id/textView3"
-        android:layout_weight="0.05"
-        android:layout_marginLeft="130dp"
+        android:layout_weight="0.00"
+        android:layout_marginLeft="132dp"
         android:layout_marginTop="150dp"
         android:layout_height="40dp"
         android:layout_marginBottom="100dp"
-        android:layout_marginRight="100dp" />
+        android:layout_marginRight="100dp"
+        android:background="@color/common_signin_btn_default_background"
+        android:textColor="#ffffff" />
 
 
 </LinearLayout>
