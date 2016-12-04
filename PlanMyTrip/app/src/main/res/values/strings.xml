@@ -15,7 +15,7 @@
     <string name="stopalarm">Stop Alarm</string>
     <string name="time1_your_trip">Time Your Trip</string>
     <string name="please_select_a_bus">Please select a bus</string>
-    <string name="you_will_reach_your_destination">you will reach your destination</string>
+    <string name="you_will_reach_your_destination">You will reach your destination</string>
     <string-array name="array_test">
         <item>stop1</item>
         <item>stop2</item>

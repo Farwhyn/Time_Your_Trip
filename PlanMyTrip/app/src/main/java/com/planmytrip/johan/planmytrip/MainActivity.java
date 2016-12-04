@@ -74,14 +74,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle = "Time Your Trip";
-    private String[] menuArray = { "Bus Stops Around Me", "View Buses",  "View My Location", "Offline Mode", "Show Skytrain",
+    private String[] menuArray = { "Bus Stops Around Me",  "View My Location", "Offline Mode",
             "My Favourite List", "Rate the app", "Feedback"};
     private Integer[] iconArray = {
             R.mipmap.list,
-            R.mipmap.bus,
+            //R.mipmap.bus,
             R.mipmap.mylocation,
             R.mipmap.setting,
-            R.mipmap.skytrain,
+            //R.mipmap.skytrain,
             R.mipmap.favorite,
             R.mipmap.rate,
             R.mipmap.feedback

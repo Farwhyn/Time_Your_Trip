@@ -58,7 +58,12 @@ public class GPSHandler {
             @Override
             public void onProviderDisabled(String s) {
 
-                ((TimerService)context).gpsProviderDisabled();
+                if (context instanceof TimerService) {
+                    ((TimerService) context).gpsProviderDisabled();
+                }
+                else{
+                    ((OfflineService) context).gpsProviderDisabled();
+                }
             }
         };
 
@@ -86,6 +91,8 @@ public class GPSHandler {
             }
             return false;
         }
+
+        System.out.println("requestUpdates " + time);
         locationManager.requestLocationUpdates("gps", time, 0, listener);
         return true;
     }
@@ -97,6 +104,7 @@ public class GPSHandler {
             return false;
         }
         locationManager.removeUpdates(listener);
+        System.out.println("removeUpdates");
         return true;
     }
 

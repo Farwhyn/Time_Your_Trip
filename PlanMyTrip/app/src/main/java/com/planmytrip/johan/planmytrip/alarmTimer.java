@@ -38,6 +38,7 @@ public class alarmTimer extends AppCompatActivity {
     private TextView timerTextView;
     boolean alarmEnabled = true;
     private Button stopAlarm;
+    Intent intentFromLastActivity;
 
 
     private TimerService myServiceBinder;
@@ -64,7 +65,7 @@ public class alarmTimer extends AppCompatActivity {
         //Handles the setting up part for the class
         super.onCreate(savedInstanceState);
 
-        Intent intentFromLastActivity = getIntent();
+        intentFromLastActivity = getIntent();
 
         if (!(intentFromLastActivity.hasExtra("UserClickedOnPermanentNotification"))) {
 
@@ -87,14 +88,21 @@ public class alarmTimer extends AppCompatActivity {
             public void onClick(View v) {
                 if (alarmEnabled) {
                     stopAlarm.setText("Set Alarm");
-                    myServiceBinder.setAlarmEnabled(false);
+                    //myServiceBinder.setAlarmEnabled(false);
                     alarmEnabled = false;
                     System.out.println("onClick stop alarm");
+                    doStopService();
 
                 } else {
                     stopAlarm.setText("Stop Alarm");
                     alarmEnabled = true;
-                    myServiceBinder.setAlarmEnabled(true);
+                    //myServiceBinder.setAlarmEnabled(true);
+
+                    Intent intent = intentFromLastActivity;
+                    intent.putExtra("Restart", "Restart");
+                    doBindService();
+                    doStartService(intent);
+
                 }
             }
         });
@@ -143,6 +151,7 @@ public class alarmTimer extends AppCompatActivity {
 
     private void serviceGotDestroyed() {
         timerTextView.setText("Done!");
+        locationTextView.setText("");
     }
 
     private void doUnbindService() {
@@ -176,6 +185,9 @@ public class alarmTimer extends AppCompatActivity {
         Stop start = (Stop) timeIntent.getSerializableExtra("startingStop");
         Stop destination = (Stop) timeIntent.getSerializableExtra("destination");
         String routeNo = timeIntent.getStringExtra("selRoute");
+        if(timeIntent.hasExtra("Restart")){
+            intent.putExtra("Restart",true);
+        }
         intent.putExtra("startingStop", start);
         intent.putExtra("destination", destination);
         intent.putExtra("selRoute", routeNo);
@@ -230,6 +242,9 @@ public class alarmTimer extends AppCompatActivity {
 
     public void updateDistance(Message message) {
         locationTextView.setText((String) message.obj);
+        if(timerTextView.getText().toString().equalsIgnoreCase("Loading...")){
+            timerTextView.setText("");
+        }
     }
 
     @Override

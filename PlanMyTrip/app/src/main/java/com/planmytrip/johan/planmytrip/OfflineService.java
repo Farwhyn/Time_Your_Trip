@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.Bundle;
@@ -141,8 +142,8 @@ public class OfflineService extends Service {
 
                 notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationBuilder = new NotificationCompat.Builder(this)
-                        .setContentTitle("Time your trip")
-                        .setContentText("You've received new messages.")
+                        .setContentTitle("Time Your Trip")
+                        .setContentText("")
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setDeleteIntent(deleteIntent)
                         .setContentIntent(clickIntent);

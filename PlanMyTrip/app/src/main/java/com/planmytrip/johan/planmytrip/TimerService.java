@@ -153,7 +153,7 @@ public class TimerService extends Service {
                 notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 notificationBuilder = new NotificationCompat.Builder(this)
                         .setContentTitle("Time your trip")
-                        .setContentText("You've received new messages.")
+                        .setContentText("")
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setDeleteIntent(deleteIntent)
                         .setContentIntent(clickIntent);
@@ -162,7 +162,13 @@ public class TimerService extends Service {
                 wakeLock = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MyWakeLock");
                 wakeLock.acquire();
 
-                new TranslinkHandler(this).getEstimatedTimeFromGoogle(start.getLatitude(), start.getLongitude(), destination.getLatitude(), destination.getLongitude(), "now");
+                if(extras.containsKey("Restart")){
+                    gpsHandler.requestGPSUpdates(500);
+                    sendMessage(1,"Loading...");
+                }
+                else {
+                    new TranslinkHandler(this).getEstimatedTimeFromGoogle(start.getLatitude(), start.getLongitude(), destination.getLatitude(), destination.getLongitude(), "now");
+                }
             }
         }
         return super.onStartCommand(intent, flags, startId);
@@ -175,9 +181,22 @@ public class TimerService extends Service {
         } else {
             System.out.println(errorMsg);
             sendMessage(UPDATE_DISTANCE_TEXTVIEW, "No Internet Connection");
-            if (!gpsHandler.requestGPSUpdates(5000)) {
-                gpsProviderDisabled();
+            if(errorMsg.equalsIgnoreCase("404")){
+                sendMessage(UPDATE_DISTANCE_TEXTVIEW, "Your selected route does not seem to have any stops near you. Please select another route!");
             }
+            gpsHandler.removeUpdates();
+            runnable = new Runnable() {
+
+                @Override
+                public void run() {
+                    if (!gpsHandler.requestGPSUpdates(1000)) {
+                        gpsProviderDisabled();
+                    }
+                }
+            };
+
+            myHandler.postDelayed(runnable, 4000);
+
 
         }
     }
@@ -228,7 +247,8 @@ public class TimerService extends Service {
             }
 
 
-        } else if (distance < 1200) {
+        }
+        else if (distance < 1200) {
             sendMessage(UPDATE_DISTANCE_TEXTVIEW, "Distance to destination: " + String.format("%.0f", distance) + " Meters");
 
             if (!hasSetGPSTo10000) {
@@ -283,6 +303,7 @@ public class TimerService extends Service {
         } else {
             System.out.println(errorMsg + " query returned with error");
             sendMessage(UPDATE_DISTANCE_TEXTVIEW, "No Internet Connection");
+            gpsHandler.removeUpdates();
             if (!gpsHandler.requestGPSUpdates(5000)) {
                 gpsProviderDisabled();
             }
