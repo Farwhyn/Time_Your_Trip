@@ -120,8 +120,7 @@ public class DatabaseAccess {
     }
 
     /**
-     * Read all quotes from the database.
-     *
+     * @param: a bus number (route)
      * @return a List of bus stops along a route
      */
 
@@ -146,9 +145,9 @@ public class DatabaseAccess {
         }
 
 
-        cursor = database.rawQuery("SELECT trip_id AS c FROM trips WHERE route_id=" + route_id, null);
+        cursor = database.rawQuery("SELECT trip_id AS c FROM trips WHERE route_id= '" + route_id + "'", null);
         if (cursor != null) {
-            try {
+                try {
                 if (cursor.moveToPosition(2)) {
                     int count = cursor.getCount();
                     if (cursor.moveToPosition(count / 2)) {
