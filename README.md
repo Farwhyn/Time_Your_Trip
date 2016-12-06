@@ -98,7 +98,7 @@ Select com.example.johan.planmytrip where all the activities are:
 **NextBusesAdapter**: this activity is to generate the list view of the buses provided to the user after he entered the starting bus stop  
 **NextStopsAdapter**: this activity is for returning the upcoming bus stops  
 **OfflineAlarm**:this activity is for setting the alarm when the offline mode is selected.  
-**OfflineService**:  
+**OfflineService**:this is for generating the bus stops for the offline mode.   
 **OfflineStops**:this is for generating the bus stops for the offline mode.  
 **Stop**: this activity will provide the location of the selected stop  
 **SwipeDetector**: this activity is for deleting a bus stop from the favourite list by swipping it left.  
@@ -108,5 +108,7 @@ Select com.example.johan.planmytrip where all the activities are:
 
 
 ##Design patterns used: 
-* Observer pattern  
+* Model-View-Controller pattern   
 As for the whole system, UI reflects the change of the states of the APP. Every time the state changes, it updates.
+*Singleton pattern 
+Is used to design the database helper class.
