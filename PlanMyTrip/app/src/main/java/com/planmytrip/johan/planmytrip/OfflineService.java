@@ -144,7 +144,7 @@ public class OfflineService extends Service {
                 notificationBuilder = new NotificationCompat.Builder(this)
                         .setContentTitle("Time Your Trip")
                         .setContentText("")
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.mipmap.appicon)
                         .setDeleteIntent(deleteIntent)
                         .setContentIntent(clickIntent);
 
